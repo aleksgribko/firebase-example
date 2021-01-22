@@ -36,9 +36,17 @@ export const createOffer = async (offer) => {
   return res;
 };
 
+export const editOffer = async (offer, offerId) => {
+  if (!db) return;
+  const of = db.collection("offers").doc(offerId);
+
+  const res = await of.update(offer);
+
+  return res;
+};
+
 export const getOneOffer = async (id) => {
-  //   if (!db) return;
-  console.log(id);
+  if (!db) return;
 
   const res = await db.collection("offers").doc(id).get();
   console.log(res.data());
