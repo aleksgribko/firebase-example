@@ -38,7 +38,7 @@ export const createOffer = async (offer) => {
 
 export const editOffer = async (offer, offerId) => {
   if (!db) return;
-  const of = db.collection("offers").doc(offerId);
+  const of = await db.collection("offers").doc(offerId);
 
   const res = await of.update(offer);
 
