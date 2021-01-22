@@ -1,25 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useAuth } from "./context/AuthProvider";
+import MainContent from "./Components/MainContent/MainContent";
+import Loader from "./Components/Loader";
+import Auth from "./Components/Auth/Auth";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { loading, isAuthorized } = useAuth();
+
+  if (loading) return <Loader />;
+  return <div className="App">{isAuthorized ? <MainContent /> : <Auth />}</div>;
 }
 
 export default App;

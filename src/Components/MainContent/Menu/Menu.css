@@ -1,0 +1,36 @@
+.menu_img {
+  background-image: url(../../../logo_spark.jpg);
+}
+
+.menu_wrap {
+  width: 100%;
+  position: relative;
+  height: 100%;
+  max-width: 100vh;
+}
+
+.menu_title {
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+}
+
+.menu_option {
+  padding: 15px;
+  width: calc(100% - 30px);
+  background-color: rgba(108, 122, 137, 0.4);
+  cursor: pointer;
+  color: white;
+}
+
+.menu_option:hover {
+  background-color: var(--color3);
+  color: var(--color1);
+}
+
+.menu_logout_button {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}

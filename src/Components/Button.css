@@ -1,0 +1,17 @@
+.default {
+  background-color: var(--color1);
+  color: white;
+  box-shadow: 0 15px 20px 0 rgba(90, 116, 148, 0.4);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 20px 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.default:hover {
+  background-color: var(--color2);
+  color: white;
+  transform: scale(1.05);
+}

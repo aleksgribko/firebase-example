@@ -1,0 +1,17 @@
+.main_content_wrap {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+
+.main_content_menu {
+  width: 400px;
+  background-color: var(--color1);
+  height: 100%;
+}
+
+.main_content_body {
+  width: 100%;
+  height: 100%;
+}
