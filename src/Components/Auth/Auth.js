@@ -3,7 +3,6 @@ import "./Auth.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "../Button";
 import { useAuth } from "../../context/AuthProvider";
-import logo from "../../logo_spark.jpg";
 
 export default function Auth() {
   const [name, setName] = useState("");

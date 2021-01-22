@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import Button from "../../Button";
 import "./Form.css";
 import TextField from "@material-ui/core/TextField";
+import { createOffer } from "../../../services/firestore";
+import { useAuth } from "../../../context/AuthProvider";
 
 export default function Form() {
+  const { functions } = useAuth();
+
   const [general, setGeneral] = useState({
     projectName: "",
     projectCode: "",
@@ -26,12 +30,15 @@ export default function Form() {
     });
   };
 
-  const handleMilestoneInfoChange = (data, type) => {
-    const oneMilestone = {};
-    setGeneral({
-      ...general,
+  const handleMilestoneInfoChange = (ind, data, type) => {
+    const newOneMilestoneInfo = Object.assign({}, milestonesInfo[ind], {
+      ...milestonesInfo[ind],
       [type]: data,
     });
+
+    let newArr = milestonesInfo;
+    newArr.splice(ind, 1, newOneMilestoneInfo);
+    setMilestonesInfo([...newArr]);
   };
 
   const handleAddMilestone = () => {
@@ -47,10 +54,26 @@ export default function Form() {
   };
 
   const handleDeleteMilestone = (ind) => {
-    let newArra = milestonesInfo;
-    newArra.splice(ind, 1);
-    console.log(newArra);
-    setMilestonesInfo([...newArra]);
+    if (milestonesInfo.length === 1) return;
+    let newArr = milestonesInfo;
+    newArr.splice(ind, 1);
+    setMilestonesInfo([...newArr]);
+  };
+
+  const handleSaveForm = async () => {
+    functions.setLoading(true);
+    const res = await createOffer({
+      generalInfo: general,
+      milestonesInfo,
+    });
+
+    if (res) {
+      functions.setLoading(false);
+      alert("Document is on the way!");
+    } else {
+      functions.setLoading(false);
+      alert("Something went wrong");
+    }
   };
 
   return (
@@ -91,7 +114,12 @@ export default function Form() {
         </div>
         {milestonesInfo.map((oneMilestone, ind) => {
           return (
-            <form noValidate autoComplete="off" className="popup_form">
+            <form
+              key={ind}
+              noValidate
+              autoComplete="off"
+              className="popup_form"
+            >
               <div className="from_milestone_title_wrap">
                 <span style={{ marginRight: 10 }}>Milestone {ind + 1}</span>{" "}
                 <Button text={"🗑"} action={() => handleDeleteMilestone(ind)} />
@@ -100,31 +128,39 @@ export default function Form() {
                 id="filled-basic"
                 label="Content"
                 variant="outlined"
-                onChange={(e) => handleMilestoneInfoChange(e.target.value)}
+                onChange={(e) =>
+                  handleMilestoneInfoChange(ind, e.target.value, "content")
+                }
               />
               <TextField
                 id="standard-basic"
                 label="Deliverables"
                 variant="outlined"
-                onChange={(e) => handleMilestoneInfoChange(e.target.value)}
+                onChange={(e) =>
+                  handleMilestoneInfoChange(ind, e.target.value, "deliverables")
+                }
               />
               <TextField
                 id="standard-basic"
                 label="Team"
                 variant="outlined"
-                onChange={(e) => handleMilestoneInfoChange(e.target.value)}
+                onChange={(e) =>
+                  handleMilestoneInfoChange(ind, e.target.value, "team")
+                }
               />
               <TextField
                 id="standard-basic"
                 label="Price"
                 variant="outlined"
-                onChange={(e) => handleMilestoneInfoChange(e.target.value)}
+                onChange={(e) =>
+                  handleMilestoneInfoChange(ind, e.target.value, "price")
+                }
               />
             </form>
           );
         })}
       </div>
-      <Button text={"Save data"} />
+      <Button text={"Save data"} action={handleSaveForm} />
       {/* add milestone */}
     </div>
   );
