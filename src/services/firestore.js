@@ -11,44 +11,78 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APP_ID,
 };
 
-// let db;
-
-// export const initizlize = () => {
 firebase.initializeApp(firebaseConfig);
-let db = firebase.firestore();
-// if (db) return true;
-// };
 
-export const getAllOffers = async () => {
+const db = firebase.firestore();
+export const auth = firebase.auth();
+
+export const signInFireBase = async (email, password) => {
+  try {
+    let user = await auth.signInWithEmailAndPassword(email, password);
+
+    if (user) {
+      console.log(user);
+      return user.user;
+    }
+  } catch (error) {
+    return {error: error.message};
+  }
+};
+
+export const signUpFireBase = async (email, password) => {
+  try {
+    let user = await auth.createUserWithEmailAndPassword(email, password);
+
+    if (user) {
+      console.log(user);
+      return user.user;
+    }
+  } catch (error) {
+    return {error: error.message};
+  }
+};
+
+export const signOutFireBase = async () => {
+  console.log("sgd");
+  try {
+    console.log(await auth.signOut());
+    return true;
+  } catch (error) {
+    return false;
+    return {error: error.message};
+  }
+};
+
+export const getAllPosts = async () => {
   if (!db) return;
-  const doc = await db.collection("offers").get();
+  const doc = await db.collection("posts").get();
   let res = [];
   doc.forEach((element) => {
-    res.push({ ...element.data(), id: element.id });
+    res.push({...element.data(), id: element.id});
   });
   return res;
 };
 
-export const createOffer = async (offer) => {
+export const createPost = async (post) => {
   if (!db) return;
-  const res = await db.collection("offers").add(offer);
+  const res = await db.collection("posts").add(post);
 
   return res;
 };
 
-export const editOffer = async (offer, offerId) => {
+export const editPost = async (post, postId) => {
   if (!db) return;
-  const of = await db.collection("offers").doc(offerId);
+  const of = await db.collection("posts").doc(postId);
 
-  const res = await of.update(offer);
+  const res = await of.update(post);
 
   return res;
 };
 
-export const getOneOffer = async (id) => {
+export const getOnePost = async (id) => {
   if (!db) return;
 
-  const res = await db.collection("offers").doc(id).get();
+  const res = await db.collection("posts").doc(id).get();
   console.log(res.data());
-  return { ...res.data(), id: res.id };
+  return {...res.data(), id: res.id};
 };

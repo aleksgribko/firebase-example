@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./MainContent.css";
 import Menu from "./Menu/Menu";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Lobby from "./Lobby/Lobby";
 import Form from "./Form/Form";
-import AllOffers from "./AllOffers/AllOffers";
+import AllPosts from "./AllPosts/AllPosts";
 
 export default function MainContent() {
   return (
@@ -18,7 +18,7 @@ export default function MainContent() {
             <Form />
           </Route>
           <Route path="/get">
-            <AllOffers />
+            <AllPosts />
           </Route>
           <Route path="/">
             <Lobby />

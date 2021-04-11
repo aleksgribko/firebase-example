@@ -12,10 +12,10 @@ export default function Menu() {
     <div className="menu_wrap">
       {/* <img alt="Sparkmate logo" className="menu_img" /> */}
       <Link to="/" style={{ textDecoration: "none" }}>
-        <h1 className="menu_title">SPARKMATE</h1>
+        <h1 className="menu_title">WCS</h1>
       </Link>
       <Link to="/fill" style={{ textDecoration: "none" }}>
-        <div className="menu_option">Fill the form</div>
+        <div className="menu_option">Create a post</div>
       </Link>
       <Link to="/get" style={{ textDecoration: "none" }}>
         <div className="menu_option">Show what you got</div>

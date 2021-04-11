@@ -1,4 +1,4 @@
-.from_wrap {
+.form_wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,8 +7,16 @@
   overflow: auto;
 }
 
-.from_milestone_title_wrap {
+.from__inputs {
+  width: 600px;
+
+}
+
+.form {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.form > * {
+  margin: 10px !important;
 }
